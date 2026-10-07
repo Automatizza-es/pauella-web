@@ -35,6 +35,7 @@ export interface Dictionary {
     description: string;
     cta: string;
     watchLabel: string;
+    touchWatchLabel: string;
     blackLabel: string;
     blackActiveLabel: string;
     items: { name: string; description: string; blackOption?: string }[];
@@ -44,6 +45,7 @@ export interface Dictionary {
     description: string;
     cta: string;
     watchLabel: string;
+    touchWatchLabel: string;
     items: { name: string; description: string }[];
   };
   customIdea: {

@@ -143,6 +143,7 @@ export default function MenuSection() {
                 reversed={index % 2 === 1}
                 ctaLabel={dict.paellas.cta}
                 watchLabel={dict.paellas.watchLabel}
+                touchWatchLabel={dict.paellas.touchWatchLabel}
                 blackLabel={dict.paellas.blackLabel}
                 blackActiveLabel={dict.paellas.blackActiveLabel}
               />
@@ -167,6 +168,7 @@ export default function MenuSection() {
                   reversed={index % 2 === 1}
                   ctaLabel={dict.specials.cta}
                   watchLabel={dict.specials.watchLabel}
+                  touchWatchLabel={dict.specials.touchWatchLabel}
                   dark
                 />
               ))}

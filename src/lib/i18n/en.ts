@@ -63,6 +63,7 @@ export const en: Dictionary = {
       "Time-honored recipes, cooked the traditional way over an open flame. Familiar flavors, unforgettable tables.",
     cta: "Ask about this one",
     watchLabel: "Watch the paella",
+    touchWatchLabel: "Touch the paella to see the video",
     blackLabel: "Make it black",
     blackActiveLabel: "Black version",
     items: [
@@ -89,6 +90,7 @@ export const en: Dictionary = {
       "Built for events that want to go further. A little more fire, a little more spectacle, a pan nobody forgets.",
     cta: "Ask about this one",
     watchLabel: "Watch the paella",
+    touchWatchLabel: "Touch the paella to see the video",
     items: [
       {
         name: "The Showstopper",

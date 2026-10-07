@@ -63,6 +63,7 @@ export const es: Dictionary = {
       "Recetas de toda la vida, cocinadas al fuego como siempre se ha hecho. Sabores de siempre, mesas inolvidables.",
     cta: "Pregunta por esta",
     watchLabel: "Ver la paella",
+    touchWatchLabel: "Toca la paella para ver el vídeo",
     blackLabel: "Pídela en negro",
     blackActiveLabel: "Versión negra",
     items: [
@@ -89,6 +90,7 @@ export const es: Dictionary = {
       "Pensadas para ir un paso más allá. Un poco más de fuego, un poco más de espectáculo, una paellera que nadie olvida.",
     cta: "Pregunta por esta",
     watchLabel: "Ver la paella",
+    touchWatchLabel: "Toca la paella para ver el vídeo",
     items: [
       {
         name: "The Showstopper",
