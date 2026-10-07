@@ -13,17 +13,16 @@ import {
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-// Half-hour slots from 8:00 to 23:30. A select rather than <input
+// Half-hour slots covering the full day. A select rather than <input
 // type="time">, since mobile time wheels ignore `step` and would let
 // someone pick 19:15 and then fail validation on submit.
-const timeSlots = Array.from({ length: 32 }, (_, i) => {
-  const minutes = 8 * 60 + i * 30;
+const timeSlots = Array.from({ length: 48 }, (_, i) => {
+  const minutes = i * 30;
   return `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
 });
 
-// Values stay 24h ("19:30") for the email; English visitors (LA) see 12h.
-function formatSlot(slot: string, locale: string) {
-  if (locale !== "en") return slot;
+// Use American 12-hour time in both languages and notification emails.
+function formatSlot(slot: string) {
   const [h, m] = slot.split(":").map(Number);
   return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
 }
@@ -43,7 +42,7 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 }
 
 export default function ContactForm() {
-  const { dict, locale } = useLocale();
+  const { dict } = useLocale();
   const form = dict.contact.form;
   const [status, setStatus] = useState<Status>("idle");
   const interestedPaellas = useInterestedPaella();
@@ -144,8 +143,8 @@ export default function ContactForm() {
         <select name="eventTime" defaultValue="" className={`${inputClass} [&_option]:text-charcoal`}>
           <option value="">—</option>
           {timeSlots.map((slot) => (
-            <option key={slot} value={slot}>
-              {formatSlot(slot, locale)}
+            <option key={slot} value={formatSlot(slot)}>
+              {formatSlot(slot)}
             </option>
           ))}
         </select>
