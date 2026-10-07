@@ -15,7 +15,7 @@ export default function Header() {
   const leftLinks = [
     { label: dict.nav.menu, href: "#menu" },
     { label: dict.nav.extras, href: "#extras" },
-    { label: dict.nav.photoVideo, href: "#photo-video" },
+    { label: dict.nav.learn, href: "#learn" },
   ];
 
   const rightLinks = [
@@ -39,13 +39,13 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto w-full max-w-[100rem] px-6 sm:px-10 lg:px-14 xl:px-20">
-        <div className="flex h-20 items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-x-10">
-          <nav className="hidden lg:flex items-center gap-5">
+        <div className="flex h-20 items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-x-6 xl:gap-x-10">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-5">
             {leftLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`shrink-0 whitespace-nowrap text-xs font-bold uppercase tracking-[0.16em] transition-colors ${
+                className={`shrink-0 whitespace-nowrap text-xs font-bold uppercase tracking-[0.12em] transition-colors xl:tracking-[0.16em] ${
                   solid ? "text-charcoal hover:text-terracotta" : "text-shell hover:text-shell/70"
                 }`}
               >
@@ -54,23 +54,23 @@ export default function Header() {
             ))}
           </nav>
 
-          <Link href="#top" className="justify-self-center">
+          <Link href="#top" className="shrink-0 justify-self-center">
             <Image
               src={solid ? "/images/logo/pauella-wordmark-black.png" : "/images/logo/pauella-wordmark-white.png"}
               alt="Pauella"
               width={873}
               height={187}
               priority
-              className="h-5 w-auto"
+              className="h-5 w-auto max-w-none"
             />
           </Link>
 
-          <div className="hidden lg:flex items-center justify-end gap-5">
+          <div className="hidden lg:flex items-center justify-end gap-4 xl:gap-5">
             {rightLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`shrink-0 whitespace-nowrap text-xs font-bold uppercase tracking-[0.16em] transition-colors ${
+                className={`shrink-0 whitespace-nowrap text-xs font-bold uppercase tracking-[0.12em] transition-colors xl:tracking-[0.16em] ${
                   solid ? "text-charcoal hover:text-terracotta" : "text-shell hover:text-shell/70"
                 }`}
               >
@@ -79,7 +79,7 @@ export default function Header() {
             ))}
             <Link
               href="#contact"
-              className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-5 py-2.5 text-xs font-bold uppercase tracking-[0.14em] transition-colors ${
+              className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2.5 text-xs font-bold uppercase tracking-[0.12em] xl:px-5 xl:tracking-[0.14em] transition-colors ${
                 solid
                   ? "border-charcoal text-charcoal hover:bg-charcoal hover:text-shell"
                   : "border-shell/70 text-shell hover:bg-shell hover:text-charcoal"

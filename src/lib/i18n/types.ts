@@ -4,7 +4,7 @@ export interface Dictionary {
   nav: {
     menu: string;
     extras: string;
-    photoVideo: string;
+    learn: string;
     about: string;
     contact: string;
     bookEvent: string;
@@ -79,13 +79,6 @@ export interface Dictionary {
     title: string;
     body: string;
     quote: string;
-  };
-  photoVideo: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    points: { name: string; description: string }[];
-    cta: string;
   };
   learnToCook: {
     eyebrow: string;

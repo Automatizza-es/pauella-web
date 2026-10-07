@@ -4,7 +4,7 @@ export const es: Dictionary = {
   nav: {
     menu: "Menú",
     extras: "Extras",
-    photoVideo: "Foto y Vídeo",
+    learn: "Clase de Cocina",
     about: "Sobre Pau",
     contact: "Contacto",
     bookEvent: "Reserva tu evento",
@@ -141,8 +141,8 @@ export const es: Dictionary = {
         points: ["Camareros", "Aperitivos servidos en sala", "Servicio de mesa"],
       },
       {
-        name: "Algo Especial",
-        points: ["Extras a medida de tu evento"],
+        name: "Foto y Vídeo",
+        points: ["Cobertura del evento", "Fotos espontáneas", "Vídeo resumen"],
       },
     ],
   },
@@ -152,30 +152,10 @@ export const es: Dictionary = {
     body: "Cocinando una fiesta a la vez. Pau creció rodeado de la paella valenciana y sabe exactamente cuándo respetar la tradición, cuándo reinterpretarla y cuándo ir un paso más allá.",
     quote: "La vida es corta. Haz paella.",
   },
-  photoVideo: {
-    eyebrow: "Captura El Día",
-    title: "Haz de tu día un recuerdo inolvidable.",
-    body: "Además del showcooking, podemos capturar los mejores momentos de tu evento en foto y vídeo para que puedas volver a vivirlos.",
-    points: [
-      {
-        name: "Cobertura del evento",
-        description: "Capturamos el ambiente y los momentos importantes.",
-      },
-      {
-        name: "Fotos espontáneas",
-        description: "Invitados, detalles y momentos reales.",
-      },
-      {
-        name: "Vídeo resumen",
-        description: "Un vídeo corto para recordar el día.",
-      },
-    ],
-    cta: "Quiero añadir foto y vídeo",
-  },
   learnToCook: {
-    eyebrow: "Aprende A Cocinar",
+    eyebrow: "Clase De Cocina",
     teaser: {
-      title: "Te toca a ti en la paellera.",
+      title: "Aprende a hacer paella.",
       body: "Elige tu paella. Pau trae el kit y te enseña cómo se hace.",
       cta: "Cocina con Pau",
     },

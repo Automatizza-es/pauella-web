@@ -3,8 +3,6 @@ import ConceptSection from "@/components/home/ConceptSection";
 import ExperienceSection from "@/components/home/ExperienceSection";
 import MenuSection from "@/components/home/MenuSection";
 import ExtrasSection from "@/components/home/ExtrasSection";
-import PhotoVideoSection from "@/components/home/PhotoVideoSection";
-import LearnToCookSection from "@/components/home/LearnToCookSection";
 import AboutPauSection from "@/components/home/AboutPauSection";
 import ServiceAreaSection from "@/components/home/ServiceAreaSection";
 import FAQSection from "@/components/home/FAQSection";
@@ -23,8 +21,6 @@ export default function Home() {
       <ExperienceSection />
       <MenuSection />
       <ExtrasSection />
-      <PhotoVideoSection />
-      <LearnToCookSection />
       <AboutPauSection />
       <ServiceAreaSection />
       <FAQSection />

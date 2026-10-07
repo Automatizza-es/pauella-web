@@ -12,7 +12,7 @@ export default function Footer() {
   const navLinks = [
     { label: dict.nav.menu, href: "#menu" },
     { label: dict.nav.extras, href: "#extras" },
-    { label: dict.nav.photoVideo, href: "#photo-video" },
+    { label: dict.nav.learn, href: "#learn" },
     { label: dict.nav.about, href: "#about" },
     { label: dict.nav.contact, href: "#contact" },
   ];

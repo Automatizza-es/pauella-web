@@ -4,7 +4,7 @@ export const en: Dictionary = {
   nav: {
     menu: "Menu",
     extras: "Extras",
-    photoVideo: "Photo & Video",
+    learn: "Cooking Class",
     about: "About",
     contact: "Contact",
     bookEvent: "Book your event",
@@ -141,8 +141,8 @@ export const en: Dictionary = {
         points: ["Waiters", "Passed appetizers", "Table service"],
       },
       {
-        name: "Something Special",
-        points: ["Extras tailored to your event"],
+        name: "Photo & Video",
+        points: ["Event coverage", "Candid photography", "Highlight video"],
       },
     ],
   },
@@ -152,30 +152,10 @@ export const en: Dictionary = {
     body: "Cooking one party at a time. Pau grew up around Valencian paella, and knows exactly when to respect the tradition, when to reinterpret it, and when to go one step further.",
     quote: "Life is short. Make paella.",
   },
-  photoVideo: {
-    eyebrow: "Capture The Day",
-    title: "Make your day unforgettable.",
-    body: "Beyond the live cooking, we can capture the best moments of your event in photo and video, so you can relive them.",
-    points: [
-      {
-        name: "Event coverage",
-        description: "We capture the atmosphere and the moments that matter.",
-      },
-      {
-        name: "Candid photography",
-        description: "Guests, details and real moments.",
-      },
-      {
-        name: "Highlight video",
-        description: "A short film to remember the day.",
-      },
-    ],
-    cta: "Add photo & video",
-  },
   learnToCook: {
-    eyebrow: "Learn To Cook",
+    eyebrow: "Cooking Class",
     teaser: {
-      title: "Your turn at the pan.",
+      title: "Learn to make paella.",
       body: "Pick your paella. Pau brings the kit and shows you how it's done.",
       cta: "Cook with Pau",
     },
