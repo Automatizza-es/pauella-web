@@ -7,8 +7,8 @@ Rediseño completo de la web de Pauella (paella en directo para eventos en Los �
 - Next.js 16 (App Router) + TypeScript + Tailwind v4, mismas convenciones que `automatizza-web` (src/app, alias `@/*`, ESLint flat config).
 - Fuentes: **Newsreader** (serif editorial, titulares) + **Inter** (sans, nav/cuerpo/botones), vía `next/font/google`. Antes era Fraunces, pero al usuario no le gustaba la forma de la "f" (ver más abajo).
 - Colores: crema/arena, negro carbón, terracota de acento, sin rojo/amarillo "Spain".
-- Repo local: `/Users/evamartin/Desktop/automatizza/pauella` — **todavía sin `git init`**.
-- **Fotos/vídeos originales sin procesar** (los que vas subiendo tú) viven en `source-photos/` en la raíz, excluido de git vía `.gitignore`. Las versiones optimizadas que realmente usa la web están en `public/images/` y `public/videos/`.
+- Repo local: `/Users/evamartin/Desktop/automatizza/pauella`, en git y subido a GitHub (`evamartin1240/pauella-web`, rama `main`). Primer commit el 7 de octubre de 2026.
+- **Fotos/vídeos originales sin procesar** (los que vas subiendo tú) viven en `fotos/` y `source-photos/` en la raíz, ambas excluidas de git vía `.gitignore`. Las versiones optimizadas que realmente usa la web están en `public/images/` y `public/videos/`.
 
 ## Hecho
 
