@@ -20,6 +20,7 @@ export function PaellaRow({
   reversed,
   ctaLabel,
   watchLabel,
+  touchWatchLabel,
   blackLabel,
   blackActiveLabel,
   dark = false,
@@ -29,6 +30,7 @@ export function PaellaRow({
   reversed: boolean;
   ctaLabel: string;
   watchLabel: string;
+  touchWatchLabel: string;
   blackLabel?: string;
   blackActiveLabel?: string;
   dark?: boolean;
@@ -73,8 +75,12 @@ export function PaellaRow({
       }`}
     >
       <div
-        onMouseEnter={start}
-        onMouseLeave={stop}
+        onPointerEnter={(event) => {
+          if (event.pointerType === "mouse") start();
+        }}
+        onPointerLeave={(event) => {
+          if (event.pointerType === "mouse") stop();
+        }}
         onClick={() => (playing ? stop() : start())}
         style={
           {
@@ -113,14 +119,15 @@ export function PaellaRow({
               <source src={media.video} type="video/mp4" />
             </video>
             <span
-              className={`pointer-events-none absolute bottom-4 left-4 flex items-center gap-2 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-shell transition-opacity duration-300 [text-shadow:0_1px_4px_rgba(0,0,0,0.45)] ${
+              className={`pointer-events-none absolute bottom-4 left-4 right-4 flex items-center gap-2 text-[0.65rem] font-medium uppercase tracking-[0.18em] text-shell transition-opacity duration-300 [text-shadow:0_1px_4px_rgba(0,0,0,0.45)] ${
                 playing ? "opacity-0" : "opacity-100"
               }`}
             >
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-soft-pulse rounded-full bg-shell" />
               </span>
-              {watchLabel}
+              <span className="hidden [@media(hover:hover)_and_(pointer:fine)]:inline">{watchLabel}</span>
+              <span className="[@media(hover:hover)_and_(pointer:fine)]:hidden">{touchWatchLabel}</span>
               <span aria-hidden>↗</span>
             </span>
           </>
