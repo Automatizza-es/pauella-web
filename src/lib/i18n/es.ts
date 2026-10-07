@@ -17,7 +17,7 @@ export const es: Dictionary = {
   concept: {
     eyebrow: "Esto no es catering",
     title: "Es fuego, una paellera y Pau cocinando delante de ti.",
-    body: "Pau llega a tu evento, enciende el fuego y cocina la paella desde cero delante de tus invitados. Sin bandejas de mantenimiento, sin cocina escondida: cocinar es parte de la fiesta, de principio a fin.",
+    body: "El aroma del sofrito, el sonido del arroz al fuego y tus invitados alrededor de la paellera. Pau cocina cada paella en el momento y hace que la preparación forme parte de la celebración.",
   },
   experience: {
     eyebrow: "La Experiencia",

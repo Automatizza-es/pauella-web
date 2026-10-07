@@ -17,7 +17,7 @@ export const en: Dictionary = {
   concept: {
     eyebrow: "Not just catering",
     title: "This is a fire, a pan, and Pau, cooking in front of you.",
-    body: "Pau comes to your place, lights the fire, and cooks paella from scratch in front of your guests. No chafing dishes, no back of house. The cooking is part of the party, start to finish.",
+    body: "The smell of sofrito, the sound of rice simmering, and your guests gathering around the pan. Pau cooks every paella on the spot, turning the preparation into part of the celebration.",
   },
   experience: {
     eyebrow: "The Experience",
