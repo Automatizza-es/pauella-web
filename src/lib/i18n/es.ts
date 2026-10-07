@@ -223,6 +223,7 @@ export const es: Dictionary = {
       email: "Email",
       phone: "Teléfono",
       eventDate: "Fecha del evento",
+      eventTime: "Hora del evento",
       eventLocation: "Ubicación del evento",
       guestCount: "Número de invitados",
       eventType: "Tipo de evento",

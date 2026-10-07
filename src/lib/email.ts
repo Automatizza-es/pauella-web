@@ -44,11 +44,18 @@ export async function sendNotificationEmail({
   }
 
   const resend = new Resend(apiKey);
-  await resend.emails.send({
+  // The SDK reports failures (bad key, unverified recipient…) in the return
+  // value instead of throwing, so surface them here — otherwise the form
+  // would show "sent" for an email that never left.
+  const { error } = await resend.emails.send({
     from: FROM_ADDRESS,
     to,
     subject,
     html,
     ...(replyTo ? { replyTo } : {}),
   });
+
+  if (error) {
+    throw new Error(`Resend failed to send "${subject}": ${error.message}`);
+  }
 }

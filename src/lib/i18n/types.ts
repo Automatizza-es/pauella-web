@@ -113,6 +113,7 @@ export interface Dictionary {
       email: string;
       phone: string;
       eventDate: string;
+      eventTime: string;
       eventLocation: string;
       guestCount: string;
       eventType: string;

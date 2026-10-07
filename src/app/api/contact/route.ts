@@ -17,6 +17,7 @@ export async function POST(request: Request) {
       ["Email", data.email],
       ["Phone", data.phone],
       ["Event date", data.eventDate],
+      ["Event time", data.eventTime],
       ["Event location", data.eventLocation],
       ["Number of guests", data.guestCount],
       ["Event type", data.eventType],

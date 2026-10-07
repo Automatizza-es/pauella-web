@@ -13,6 +13,21 @@ import {
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+// Half-hour slots from 8:00 to 23:30. A select rather than <input
+// type="time">, since mobile time wheels ignore `step` and would let
+// someone pick 19:15 and then fail validation on submit.
+const timeSlots = Array.from({ length: 32 }, (_, i) => {
+  const minutes = 8 * 60 + i * 30;
+  return `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+});
+
+// Values stay 24h ("19:30") for the email; English visitors (LA) see 12h.
+function formatSlot(slot: string, locale: string) {
+  if (locale !== "en") return slot;
+  const [h, m] = slot.split(":").map(Number);
+  return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+}
+
 const inputClass =
   "w-full border-0 border-b border-shell/25 bg-transparent py-2.5 text-shell placeholder:text-shell/30 focus:border-terracotta focus:outline-none [color-scheme:dark]";
 
@@ -28,7 +43,7 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 }
 
 export default function ContactForm() {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
   const form = dict.contact.form;
   const [status, setStatus] = useState<Status>("idle");
   const interestedPaellas = useInterestedPaella();
@@ -119,32 +134,40 @@ export default function ContactForm() {
       <Field label={form.phone}>
         <input name="phone" type="tel" className={inputClass} />
       </Field>
+      <Field label={form.eventLocation}>
+        <input name="eventLocation" className={inputClass} />
+      </Field>
       <Field label={form.eventDate}>
         <input name="eventDate" type="date" className={inputClass} />
       </Field>
-      <Field label={form.eventLocation}>
-        <input name="eventLocation" className={inputClass} />
+      <Field label={form.eventTime}>
+        <select name="eventTime" defaultValue="" className={`${inputClass} [&_option]:text-charcoal`}>
+          <option value="">—</option>
+          {timeSlots.map((slot) => (
+            <option key={slot} value={slot}>
+              {formatSlot(slot, locale)}
+            </option>
+          ))}
+        </select>
       </Field>
       <Field label={form.guestCount}>
         <input name="guestCount" type="number" min={1} className={inputClass} />
       </Field>
-      <div className="sm:col-span-2">
-        <Field label={form.eventType}>
-          <select
-            name="eventType"
-            defaultValue=""
-            className={`${inputClass} [&_option]:text-charcoal`}
-          >
-            <option value="" disabled>
-              —
-            </option>
-            <option value="private-party">{form.eventTypeOptions.privateParty}</option>
-            <option value="wedding">{form.eventTypeOptions.wedding}</option>
-            <option value="corporate">{form.eventTypeOptions.corporate}</option>
-            <option value="other">{form.eventTypeOptions.other}</option>
-          </select>
-        </Field>
-      </div>
+      <Field label={form.eventType}>
+        <select
+          name="eventType"
+          defaultValue=""
+          className={`${inputClass} [&_option]:text-charcoal`}
+        >
+          <option value="" disabled>
+            —
+          </option>
+          <option value="private-party">{form.eventTypeOptions.privateParty}</option>
+          <option value="wedding">{form.eventTypeOptions.wedding}</option>
+          <option value="corporate">{form.eventTypeOptions.corporate}</option>
+          <option value="other">{form.eventTypeOptions.other}</option>
+        </select>
+      </Field>
       <div className="sm:col-span-2">
         <Field label={form.message}>
           <textarea name="message" rows={3} className={`${inputClass} resize-none`} />
