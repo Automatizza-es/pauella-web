@@ -37,6 +37,12 @@ export async function sendNotificationEmail({
   const to = process.env.NOTIFICATION_EMAIL;
 
   if (!apiKey || !to) {
+    // Locally it's fine to run without Resend configured, but on the live
+    // site a missing variable must fail the request — otherwise the visitor
+    // sees "thank you" and the enquiry silently goes nowhere.
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("RESEND_API_KEY or NOTIFICATION_EMAIL is not set; cannot send notification email.");
+    }
     console.log("RESEND_API_KEY or NOTIFICATION_EMAIL not set, skipping email send.", {
       subject,
     });
