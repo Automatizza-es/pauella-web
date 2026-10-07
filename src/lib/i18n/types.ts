@@ -88,6 +88,11 @@ export interface Dictionary {
   };
   learnToCook: {
     eyebrow: string;
+    teaser: {
+      title: string;
+      body: string;
+      cta: string;
+    };
     title: string;
     body: string;
     steps: string[];
@@ -126,6 +131,7 @@ export interface Dictionary {
       message: string;
       askingAbout: string;
       addAnother: string;
+      cookingClass: string;
       submit: string;
       submitting: string;
       success: string;

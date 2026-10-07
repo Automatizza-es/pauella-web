@@ -173,6 +173,11 @@ export const en: Dictionary = {
   },
   learnToCook: {
     eyebrow: "Learn To Cook",
+    teaser: {
+      title: "Your turn at the pan.",
+      body: "Pick your paella. Pau brings the kit and shows you how it's done.",
+      cta: "Cook with Pau",
+    },
     title: "Cook it with Pau.",
     body: "Pick your paella, learn the fire and take the know-how home.",
     steps: ["Pick your paella", "Get your kit", "Cook with Pau", "Make it yours"],
@@ -249,6 +254,7 @@ export const en: Dictionary = {
       message: "Tell us about your event",
       askingAbout: "Asking about",
       addAnother: "+ Add another paella",
+      cookingClass: "Cooking class with Pau",
       submit: "Request your event",
       submitting: "Sending…",
       success: "Thank you. Your request is in. We'll get back to you shortly to talk details.",

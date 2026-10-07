@@ -8,7 +8,7 @@ export default function AboutPauSection() {
   const { dict } = useLocale();
 
   return (
-    <section id="about" className="relative overflow-hidden bg-charcoal py-28 text-shell sm:py-36">
+    <section id="about" className="relative overflow-hidden bg-charcoal py-20 text-shell sm:py-24">
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <div className="order-2 lg:order-1">
           <p className="text-xs font-medium uppercase tracking-[0.28em] text-terracotta">
@@ -21,13 +21,13 @@ export default function AboutPauSection() {
           </p>
         </div>
 
-        <div className="order-1 aspect-[4/5] overflow-hidden rounded-sm lg:order-2">
+        <div className="order-1 aspect-[4/3] overflow-hidden rounded-sm lg:order-2">
           <Image
-            src="/images/pau-sunset-paella.png"
-            alt="Pau, the chef behind Pauella, cooking paella over an open fire"
-            width={800}
-            height={1000}
-            className="h-full w-full object-cover object-[78%_35%]"
+            src="/images/about-pau.jpg"
+            alt="Pau, the chef behind Pauella, smiling next to a steaming paella pan on the beach"
+            width={1174}
+            height={1583}
+            className="h-full w-full object-cover object-[50%_30%]"
             loading="lazy"
           />
         </div>

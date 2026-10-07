@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "rea
 import Link from "next/link";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import {
+  COOKING_CLASS,
   clearInterestedPaella,
   paellaSlug,
   removeInterestedPaella,
@@ -31,6 +32,10 @@ export default function ContactForm() {
   const form = dict.contact.form;
   const [status, setStatus] = useState<Status>("idle");
   const interestedPaellas = useInterestedPaella();
+  const labelFor = (name: string) => (name === COOKING_CLASS ? form.cookingClass : name);
+  // "+ Add another paella" jumps back to the last dish row picked; the
+  // cooking class has no row of its own, so it falls back to the menu.
+  const lastDish = interestedPaellas.filter((name) => name !== COOKING_CLASS).at(-1);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const hadAnyRef = useRef(false);
 
@@ -85,11 +90,11 @@ export default function ContactForm() {
               key={name}
               className="inline-flex items-center gap-2 rounded-full border border-terracotta/40 bg-terracotta/10 px-4 py-2 text-xs text-shell"
             >
-              {name}
+              {labelFor(name)}
               <button
                 type="button"
                 onClick={() => removeInterestedPaella(name)}
-                aria-label={`Remove ${name}`}
+                aria-label={`Remove ${labelFor(name)}`}
                 className="text-shell/60 transition-colors hover:text-shell"
               >
                 ×
@@ -97,14 +102,14 @@ export default function ContactForm() {
             </span>
           ))}
           <Link
-            href={`#${paellaSlug(interestedPaellas[interestedPaellas.length - 1])}`}
+            href={lastDish ? `#${paellaSlug(lastDish)}` : "#menu"}
             className="text-xs text-shell/60 underline decoration-shell/30 underline-offset-4 transition-colors hover:text-terracotta hover:decoration-terracotta"
           >
             {form.addAnother}
           </Link>
         </div>
       )}
-      <input type="hidden" name="interestedPaella" value={interestedPaellas.join(", ")} />
+      <input type="hidden" name="interestedPaella" value={interestedPaellas.map(labelFor).join(", ")} />
       <Field label={form.name}>
         <input ref={nameInputRef} name="name" required className={inputClass} />
       </Field>

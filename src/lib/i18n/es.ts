@@ -173,6 +173,11 @@ export const es: Dictionary = {
   },
   learnToCook: {
     eyebrow: "Aprende A Cocinar",
+    teaser: {
+      title: "Te toca a ti en la paellera.",
+      body: "Elige tu paella. Pau trae el kit y te enseña cómo se hace.",
+      cta: "Cocina con Pau",
+    },
     title: "Cocina con Pau.",
     body: "Elige tu paella, aprende el fuego y llévate lo aprendido a casa.",
     steps: ["Elige tu paella", "Recibe tu kit", "Cocina con Pau", "Hazla tuya"],
@@ -249,6 +254,7 @@ export const es: Dictionary = {
       message: "Cuéntanos sobre tu evento",
       askingAbout: "Preguntando por",
       addAnother: "+ Añadir otra paella",
+      cookingClass: "Clase de cocina con Pau",
       submit: "Solicitar tu evento",
       submitting: "Enviando…",
       success: "Gracias. Hemos recibido tu solicitud. Te contactaremos pronto para hablar de los detalles.",
