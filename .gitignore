@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Production
+build/
+
+# Local environment
+.env*
+!.env.example
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Raw source photos/videos (unprocessed originals; optimized versions live in public/)
+source-photos/
+fotos/

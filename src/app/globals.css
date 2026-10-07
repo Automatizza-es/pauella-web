@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-serif-display), "Iowan Old Style", serif;
+  --font-sans: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
+
+  --color-sand: #f6efe2;
+  --color-sand-deep: #ece1c9;
+  --color-shell: #fbf7ee;
+  --color-charcoal: #1c1a16;
+  --color-charcoal-soft: #34302a;
+  --color-terracotta: #c1592f;
+  --color-terracotta-deep: #9c4020;
+  --color-olive: #56603f;
+  --color-olive-soft: #79815f;
+
+  --tracking-wide-plus: 0.18em;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-sand);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-ken-burns {
+    animation: ken-burns 24s ease-in-out infinite alternate;
+  }
+
+  .animate-paella-breathe {
+    animation: paella-breathe 10s ease-in-out infinite alternate;
+  }
+
+  .animate-soft-pulse {
+    animation: soft-pulse 3.2s ease-in-out infinite;
+  }
+
+  .animate-modal-in {
+    animation: modal-in 0.35s ease-out;
+  }
+}
+
+dialog::backdrop {
+  animation: backdrop-in 0.35s ease-out;
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes paella-breathe {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.025) translate(-4px, 3px);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ken-burns,
+  .animate-paella-breathe,
+  .animate-soft-pulse,
+  .animate-modal-in {
+    animation: none;
+  }
+
+  dialog::backdrop {
+    animation: none;
+  }
+}
