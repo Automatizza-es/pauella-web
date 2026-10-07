@@ -49,13 +49,14 @@ export interface Dictionary {
   customIdea: {
     name: string;
     description: string;
-    title: string[];
+    title: string;
     body: string;
     tags: string[];
     cta: string;
     modal: {
       title: string;
       body: string;
+      picks: string;
       email: string;
       ingredients: string;
       dislikes: string;

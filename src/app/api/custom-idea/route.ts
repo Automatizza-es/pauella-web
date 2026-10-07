@@ -14,6 +14,7 @@ export async function POST(request: Request) {
     subject: `New custom paella idea from ${data.email}`,
     html: emailRows([
       ["Email", data.email],
+      ["Picked", data.tags],
       ["Favorite ingredients", data.ingredients],
       ["Doesn't like", data.dislikes],
       ["Number of guests", data.guestCount],

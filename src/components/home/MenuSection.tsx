@@ -56,7 +56,7 @@ const specialsMedia: PaellaMedia[] = [
 // and dash anchor it to the chapter (same device repeated 3 times), while
 // the oversized serif name gives each subsection its own editorial weight.
 // `description` is optional — the two dish-listing subsections get a second,
-// more evocative column; the closing "A Step Further" subsection stays lean
+// more evocative column; the closing "Custom Paella" subsection stays lean
 // since its own big headline right below already carries that weight.
 function SubsectionHeading({
   number,
@@ -97,18 +97,13 @@ export default function MenuSection() {
   const { ref: introRef, visible: introVisible } = useReveal<HTMLDivElement>();
   const { ref: stepRef, visible: stepVisible } = useReveal<HTMLDivElement>();
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
+  // Tracked by index, not label, so picks survive the EN/ES switch.
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
-  function toggleTag(tag: string) {
-    setSelectedTags((current) => {
-      const next = new Set(current);
-      if (next.has(tag)) {
-        next.delete(tag);
-      } else {
-        next.add(tag);
-      }
-      return next;
-    });
+  function toggleTag(index: number) {
+    setSelectedTags((current) =>
+      current.includes(index) ? current.filter((i) => i !== index) : [...current, index],
+    );
   }
 
   return (
@@ -179,7 +174,7 @@ export default function MenuSection() {
           </div>
         </div>
 
-        {/* 03 — A Step Further */}
+        {/* 03 — Custom Paella */}
         <div className="mt-20 border-t border-charcoal/10 pt-16 sm:pt-20">
           <SubsectionHeading
             number="03"
@@ -187,31 +182,42 @@ export default function MenuSection() {
             description={dict.customIdea.description}
           />
 
+          {/* Compact banner, same treatment as the Learn To Cook teaser:
+              the photo fades into the background from the
+              text side, so the block reads as one strip, not a full row. */}
           <div
             ref={stepRef}
-            className={`mt-4 grid items-center gap-7 py-9 transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 lg:grid-cols-[2fr_3fr] lg:gap-16 ${
+            className={`relative mt-10 overflow-hidden rounded-sm bg-sand transition-all lg:flex lg:min-h-[28rem] lg:items-center duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
               stepVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <div>
-              <span className="block h-px w-8 bg-terracotta" aria-hidden />
-              <h3 className="mt-4 text-3xl sm:text-4xl">
-                {dict.customIdea.title[0]}
-                <br />
-                {dict.customIdea.title[1]}
-              </h3>
-              <p className="mt-6 max-w-md text-charcoal-soft">{dict.customIdea.body}</p>
+            <div className="relative aspect-[5/4] w-full sm:aspect-[4/3] lg:absolute lg:inset-y-0 lg:right-0 lg:aspect-auto lg:w-[48%]">
+              <Image
+                src="/images/paellas/custom-paella.jpg"
+                alt="Pau smiling as he stirs a large paella pan by the pool at a private party"
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover object-[50%_20%] lg:object-[50%_40%]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-sand via-sand/0 via-20% lg:bg-gradient-to-r lg:via-sand/50 lg:via-15% lg:to-transparent lg:to-45%" />
+            </div>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                {dict.customIdea.tags.map((tag) => {
-                  const active = selectedTags.has(tag);
+            <div className="relative max-w-lg px-6 pb-10 pt-2 sm:px-10 lg:px-14 lg:py-16">
+              <span className="block h-px w-8 bg-terracotta" aria-hidden />
+              <h3 className="mt-4 text-balance text-3xl sm:text-4xl">{dict.customIdea.title}</h3>
+              <p className="mt-4 text-charcoal-soft">{dict.customIdea.body}</p>
+
+              {/* One row from tablet up; on narrow phones four chips don't fit, so they wrap. */}
+              <div className="mt-6 flex flex-wrap gap-2 sm:flex-nowrap">
+                {dict.customIdea.tags.map((tag, index) => {
+                  const active = selectedTags.includes(index);
                   return (
                     <button
                       key={tag}
                       type="button"
                       aria-pressed={active}
-                      onClick={() => toggleTag(tag)}
-                      className={`rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.1em] transition-colors ${
+                      onClick={() => toggleTag(index)}
+                      className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.1em] transition-colors ${
                         active
                           ? "border-terracotta bg-terracotta/10 text-terracotta"
                           : "border-charcoal/15 text-charcoal-soft hover:border-charcoal/30"
@@ -226,26 +232,20 @@ export default function MenuSection() {
               <button
                 type="button"
                 onClick={() => dialogRef.current?.showModal()}
-                className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-8 py-3.5 text-xs font-medium uppercase tracking-[0.18em] text-shell transition-colors hover:bg-terracotta-deep"
+                className="mt-8 inline-flex whitespace-nowrap items-center justify-center gap-2 rounded-full bg-terracotta px-8 py-3.5 text-xs font-medium uppercase tracking-[0.18em] text-shell transition-colors hover:bg-terracotta-deep"
               >
                 {dict.customIdea.cta}
                 <span aria-hidden>→</span>
               </button>
             </div>
-
-            <Image
-              src="/images/paellas/ingredients-sketch.png"
-              alt="Sketch of octopus, clams, truffle, saffron and olive branches beside a paella pan"
-              width={900}
-              height={900}
-              sizes="(min-width: 1024px) 40vw, 0px"
-              className="ml-auto hidden h-auto max-w-sm lg:block"
-            />
           </div>
         </div>
       </Container>
 
-      <CustomIdeaModal ref={dialogRef} />
+      <CustomIdeaModal
+        ref={dialogRef}
+        selectedTags={selectedTags.map((index) => dict.customIdea.tags[index])}
+      />
     </section>
   );
 }

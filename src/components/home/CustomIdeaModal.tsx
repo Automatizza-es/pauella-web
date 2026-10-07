@@ -19,7 +19,12 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-const CustomIdeaModal = forwardRef<HTMLDialogElement>(function CustomIdeaModal(_props, ref) {
+// selectedTags comes from the tag chips on the banner, so whatever someone
+// ticked there travels with their idea instead of being lost on open.
+const CustomIdeaModal = forwardRef<HTMLDialogElement, { selectedTags: string[] }>(function CustomIdeaModal(
+  { selectedTags },
+  ref,
+) {
   const { dict } = useLocale();
   const modal = dict.customIdea.modal;
   const [status, setStatus] = useState<Status>("idle");
@@ -78,7 +83,22 @@ const CustomIdeaModal = forwardRef<HTMLDialogElement>(function CustomIdeaModal(_
             <h3 className="max-w-sm text-balance text-2xl sm:text-3xl">{modal.title}</h3>
             <p className="mt-3 max-w-sm text-sm text-charcoal-soft">{modal.body}</p>
 
+            {selectedTags.length > 0 && (
+              <div className="mt-6 flex flex-wrap items-center gap-2">
+                <span className="text-xs text-charcoal-soft/60">{modal.picks}:</span>
+                {selectedTags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-terracotta/40 bg-terracotta/10 px-3 py-1 text-xs text-terracotta"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="mt-8 grid gap-6">
+              <input type="hidden" name="tags" value={selectedTags.join(", ")} />
               <Field label={modal.email}>
                 <input name="email" type="email" required className={inputClass} />
               </Field>
