@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
-import { languageAlternates } from "@/lib/locale-seo";
+import { pageAlternates, type PageId } from "@/lib/page-routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return (["en", "es"] as const).map((locale) => ({
-    url: languageAlternates[locale],
-    alternates: { languages: languageAlternates },
-  }));
+  return (["home", "classes"] as PageId[]).flatMap((page) => {
+    const languages = pageAlternates(page);
+    return (["en", "es"] as const).map((locale) => ({
+      url: languages[locale], alternates: { languages },
+    }));
+  });
 }

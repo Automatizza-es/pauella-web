@@ -15,7 +15,7 @@ let restored = false;
 const STORAGE_KEY = "pauella-language-selection";
 
 export function saveInterestedPaellas() {
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(getSnapshot()));
 }
 
 function subscribe(listener: Listener) {

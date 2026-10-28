@@ -1,5 +1,8 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+import { pagePaths, pageFromPath } from "@/lib/page-routes";
+import { classContent } from "@/lib/classes/content";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "./Container";
@@ -7,14 +10,18 @@ import { siteConfig } from "@/lib/site-config";
 import { useLocale } from "@/components/providers/LocaleProvider";
 
 export default function Footer() {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
+  const isClassPage = pageFromPath(usePathname()) === "classes";
+  const section = (id: string) => !isClassPage ? `#${id}`
+    : id === "contact" ? "#class-enquiry" : id === "learn" ? "#class-overview" : `${pagePaths.home[locale]}#${id}`;
 
   const navLinks = [
-    { label: dict.nav.menu, href: "#menu" },
-    { label: dict.nav.extras, href: "#extras" },
-    { label: dict.nav.learn, href: "#learn" },
-    { label: dict.nav.about, href: "#about" },
-    { label: dict.nav.contact, href: "#contact" },
+    { label: dict.nav.menu, href: section("menu") },
+    { label: dict.nav.extras, href: section("extras") },
+    { label: dict.nav.learn, href: section("learn") },
+    { label: dict.nav.about, href: section("about") },
+    { label: dict.nav.contact, href: section("contact") },
+    ...(!isClassPage ? [{ label: classContent[locale].footerLink, href: pagePaths.classes[locale] }] : []),
   ];
 
   return (

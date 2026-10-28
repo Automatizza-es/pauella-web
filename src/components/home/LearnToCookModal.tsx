@@ -1,5 +1,7 @@
 "use client";
 
+import { pagePaths } from "@/lib/page-routes";
+import { classContent } from "@/lib/classes/content";
 import { forwardRef } from "react";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import { COOKING_CLASS, addInterestedPaella } from "@/lib/useInterestedPaella";
@@ -110,6 +112,7 @@ const LearnToCookModal = forwardRef<HTMLDialogElement, Props>(function LearnToCo
               {learn.cta}
               <span aria-hidden>→</span>
             </a>
+            <a href={pagePaths.classes[locale]} className="mt-6 block text-xs font-medium uppercase tracking-[0.14em] underline decoration-charcoal/30 underline-offset-8 transition-colors hover:text-terracotta">{classContent[locale].detailsLink}</a>
           </div>
         </div>
       </div>

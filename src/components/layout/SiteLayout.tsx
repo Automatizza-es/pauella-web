@@ -1,4 +1,5 @@
 import { Newsreader, Inter } from "next/font/google";
+import NavigationPreserver from "@/components/providers/NavigationPreserver";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { LocaleProvider } from "@/components/providers/LocaleProvider";
@@ -27,6 +28,7 @@ export default function SiteLayout({
     <html lang={locale} className={`${newsreader.variable} ${inter.variable}`}>
       <body>
         <LocaleProvider locale={locale}>
+          <NavigationPreserver />
           <Header />
           <main>{children}</main>
           <Footer />

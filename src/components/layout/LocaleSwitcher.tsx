@@ -3,14 +3,16 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import type { Locale } from "@/lib/i18n";
-import { localePaths } from "@/lib/locale-seo";
+import { usePathname } from "next/navigation";
+import { pagePaths, pageFromPath } from "@/lib/page-routes";
 import { translatedHash } from "@/lib/paella-identity";
-import { saveLanguageChoices } from "@/lib/useLanguageChoices";
-import { saveLanguageDrafts } from "@/lib/language-drafts";
-import { saveInterestedPaellas } from "@/lib/useInterestedPaella";
 
 export default function LocaleSwitcher({ solid }: { solid: boolean }) {
   const { locale } = useLocale();
+  const page = pageFromPath(usePathname());
+  const localePaths = pagePaths[page];
+  const equivalentHash = (value: string, code: Locale) => page === "home" ? translatedHash(value, code)
+    : ["#top", "#class-overview", "#class-setup", "#class-faq", "#class-enquiry"].includes(value) ? value : "";
   const [hash, setHash] = useState("");
   useEffect(() => {
     const update = () => setHash(window.location.hash);
@@ -33,29 +35,11 @@ export default function LocaleSwitcher({ solid }: { solid: boolean }) {
   }, []);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, code: Locale) {
-    event.currentTarget.href = `${localePaths[code]}${translatedHash(window.location.hash, code)}`;
+    event.currentTarget.href = `${localePaths[code]}${equivalentHash(window.location.hash, code)}`;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     if (code === locale) {
       event.preventDefault();
       return;
-    }
-    if (document.querySelector('form[data-submitting="true"]')) {
-      event.preventDefault();
-      window.alert(locale === "en"
-        ? "Please wait for your request to finish before changing language."
-        : "Espera a que termine el envío antes de cambiar de idioma.");
-      return;
-    }
-    // New tabs intentionally start clean; preserve normal browser link semantics.
-    try {
-      saveLanguageDrafts();
-      saveInterestedPaellas();
-      saveLanguageChoices();
-    } catch {
-      const message = locale === "en"
-        ? "Your browser cannot preserve your form or selection when changing language. Continue?"
-        : "Tu navegador no puede conservar el formulario o la selección al cambiar de idioma. ¿Continuar?";
-      if (!window.confirm(message)) event.preventDefault();
     }
   }
 
@@ -63,7 +47,7 @@ export default function LocaleSwitcher({ solid }: { solid: boolean }) {
   const muted = solid ? "text-charcoal/40" : "text-shell/50";
   const option = (code: Locale, label: string) => (
     <a
-      href={`${localePaths[code]}${translatedHash(hash, code)}`}
+      href={`${localePaths[code]}${equivalentHash(hash, code)}`}
       hrefLang={code}
       lang={code}
       aria-current={locale === code ? "page" : undefined}

@@ -95,3 +95,15 @@ preview en [docs/seo-h01.md](docs/seo-h01.md).
 npm run test:i18n
 python tests/i18n-browser.py
 ```
+
+## Landing de clases de paella
+
+Rutas: `/paella-cooking-classes-los-angeles/` y
+`/es/clases-de-paella-los-angeles/`. Condiciones, formulario, pruebas y revisión
+de preview en [docs/seo-cooking-classes.md](docs/seo-cooking-classes.md).
+
+```bash
+npm run test:classes:api
+npm run test:classes:seo
+python tests/cooking-class-browser.py
+```

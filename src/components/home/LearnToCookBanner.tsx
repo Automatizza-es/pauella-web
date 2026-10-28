@@ -1,5 +1,7 @@
 "use client";
 
+import { pagePaths } from "@/lib/page-routes";
+import { classContent } from "@/lib/classes/content";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useLocale } from "@/components/providers/LocaleProvider";
@@ -10,7 +12,7 @@ import LearnToCookModal from "./LearnToCookModal";
 // kit, video) lives in the modal, so the page only carries title + one
 // line + CTA.
 export default function LearnToCookBanner() {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
   const teaser = dict.learnToCook.teaser;
   const { ref } = useReveal<HTMLDivElement>();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -55,6 +57,7 @@ export default function LearnToCookBanner() {
           {teaser.cta}
           <span aria-hidden>→</span>
         </button>
+        <a href={pagePaths.classes[locale]} className="mt-6 block text-xs font-medium uppercase tracking-[0.14em] underline decoration-charcoal/30 underline-offset-8 transition-colors hover:text-terracotta">{classContent[locale].detailsLink}</a>
       </div>
 
       <LearnToCookModal ref={dialogRef} open={modalOpen} onClose={() => setModalOpen(false)} />

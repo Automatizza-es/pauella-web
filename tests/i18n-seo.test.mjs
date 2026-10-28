@@ -63,11 +63,14 @@ for (const [locale, path, title, h1, menu, ogLocale] of [
 test("sitemap has both canonical URLs, reciprocal alternates, no artificial lastmod", async () => {
   const xml = await get("/sitemap.xml");
   const entries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(([, entry]) => entry);
-  assert.equal(entries.length, 2);
-  assert.deepEqual(entries.map((entry) => entry.match(/<loc>([^<]*)<\/loc>/)[1]).sort(), [languages.en, languages.es].sort());
+  assert.equal(entries.length, 4);
+  assert.deepEqual(entries.map((entry) => entry.match(/<loc>([^<]*)<\/loc>/)[1]).sort(), [languages.en, languages.es, `${origin}/paella-cooking-classes-los-angeles/`, `${origin}/es/clases-de-paella-los-angeles/`].sort());
   for (const entry of entries) {
     const alternates = [...entry.matchAll(/<xhtml:link\b[^>]*>/g)].map(([tag]) => attrs(tag));
-    assert.deepEqual(Object.fromEntries(alternates.map((tag) => [tag.hreflang, tag.href])), languages);
+    const expected = /(?:paella-cooking-classes|clases-de-paella)/.test(entry)
+      ? { en: `${origin}/paella-cooking-classes-los-angeles/`, es: `${origin}/es/clases-de-paella-los-angeles/`, "x-default": `${origin}/paella-cooking-classes-los-angeles/` }
+      : languages;
+    assert.deepEqual(Object.fromEntries(alternates.map((tag) => [tag.hreflang, tag.href])), expected);
   }
   assert.doesNotMatch(xml, /<lastmod>/);
   const robots = await get("/robots.txt");

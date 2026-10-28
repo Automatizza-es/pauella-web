@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "test:seo": "node --test tests/seo-domain.test.mjs",
     "test:content": "node --test tests/content-html.test.mjs",
-    "test:i18n": "node --test tests/i18n-seo.test.mjs"
+    "test:i18n": "node --test tests/i18n-seo.test.mjs",
+    "test:classes:api": "node --test --test-isolation=none tests/cooking-class-api.test.mjs",
+    "test:classes:seo": "node --test tests/cooking-class-seo.test.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",

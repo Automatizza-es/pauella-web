@@ -8,7 +8,8 @@ type Drafts = Record<string, Record<string, string>>;
 // Save only on an explicit language navigation, not on every keystroke.
 // Data stays in this tab and is consumed by the destination form.
 export function saveLanguageDrafts() {
-  const drafts: Drafts = {};
+  const stored: unknown = JSON.parse(sessionStorage.getItem(KEY) || "{}");
+  const drafts: Drafts = stored && typeof stored === "object" && !Array.isArray(stored) ? stored as Drafts : {};
   document.querySelectorAll<HTMLFormElement>("form[data-draft]").forEach((form) => {
     const values: Record<string, string> = {};
     for (const [name, value] of new FormData(form)) {

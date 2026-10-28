@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { pagePaths, pageFromPath } from "@/lib/page-routes";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "./Container";
@@ -9,18 +11,23 @@ import { useLocale } from "@/components/providers/LocaleProvider";
 
 export default function Header() {
   const { dict, locale } = useLocale();
+  const isClassPage = pageFromPath(usePathname()) === "classes";
+  const home = pagePaths.home[locale];
+  const section = (id: string) => !isClassPage ? `#${id}`
+    : id === "contact" ? "#class-enquiry" : id === "learn" ? "#class-overview" : `${home}#${id}`;
+  const bookingLabel = isClassPage ? (locale === "en" ? "Ask about a class" : "Consulta una clase") : dict.nav.bookEvent;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   const leftLinks = [
-    { label: dict.nav.menu, href: "#menu" },
-    { label: dict.nav.extras, href: "#extras" },
-    { label: dict.nav.learn, href: "#learn" },
+    { label: dict.nav.menu, href: section("menu") },
+    { label: dict.nav.extras, href: section("extras") },
+    { label: dict.nav.learn, href: section("learn") },
   ];
 
   const rightLinks = [
-    { label: dict.nav.about, href: "#about" },
-    { label: dict.nav.contact, href: "#contact" },
+    { label: dict.nav.about, href: section("about") },
+    { label: dict.nav.contact, href: section("contact") },
   ];
 
   useEffect(() => {
@@ -54,7 +61,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <Link href="#top" className="shrink-0 justify-self-center">
+          <Link href={isClassPage ? home : "#top"} className="shrink-0 justify-self-center">
             <Image
               src={solid ? "/images/logo/pauella-wordmark-black.png" : "/images/logo/pauella-wordmark-white.png"}
               alt="Pauella"
@@ -78,14 +85,14 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="#contact"
+              href={section("contact")}
               className={`inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2.5 text-xs font-bold uppercase tracking-[0.12em] xl:px-5 xl:tracking-[0.14em] transition-colors ${
                 solid
                   ? "border-charcoal text-charcoal hover:bg-charcoal hover:text-shell"
                   : "border-shell/70 text-shell hover:bg-shell hover:text-charcoal"
               }`}
             >
-              {dict.nav.bookEvent} <span aria-hidden>→</span>
+              {bookingLabel} <span aria-hidden>→</span>
             </Link>
             <span className={`h-3.5 w-px shrink-0 ${solid ? "bg-charcoal/20" : "bg-shell/30"}`} aria-hidden />
             <div className="shrink-0">
@@ -129,11 +136,11 @@ export default function Header() {
                 </Link>
               ))}
               <Link
-                href="#contact"
+                href={section("contact")}
                 onClick={() => setOpen(false)}
                 className="py-5 text-sm font-bold uppercase tracking-[0.14em] text-terracotta"
               >
-                {dict.nav.bookEvent} →
+                {bookingLabel} →
               </Link>
             </nav>
           </Container>

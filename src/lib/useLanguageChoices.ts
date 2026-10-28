@@ -33,7 +33,7 @@ function snapshot() {
   return choices;
 }
 export function saveLanguageChoices() {
-  sessionStorage.setItem(KEY, JSON.stringify(choices));
+  sessionStorage.setItem(KEY, JSON.stringify(snapshot()));
 }
 export function useLanguageChoice<T extends boolean | number[]>(key: string, initial: T) {
   const current = useSyncExternalStore(subscribe, snapshot, () => EMPTY);
