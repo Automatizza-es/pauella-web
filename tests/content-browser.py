@@ -108,9 +108,11 @@ class ContentTests(unittest.TestCase):
             with self.subTest(viewport=name):
                 page = self.page(size, reduced_motion='reduce')
                 page.goto(BASE, wait_until='networkidle')
-                page.get_by_role('button', name='ES', exact=True).click()
+                page.get_by_role('link', name='ES', exact=True).click()
                 expect(page.locator('h1')).to_have_text('Catering de paellas en directo en Los Ángeles')
-                page.get_by_role('button', name='EN', exact=True).click()
+                page.wait_for_load_state('networkidle')
+                page.get_by_role('link', name='EN', exact=True).click()
+                page.wait_for_load_state('networkidle')
                 if name == 'mobile':
                     page.get_by_role('button', name='Toggle menu').click()
                 page.locator('header').get_by_role('link', name='Menu', exact=True).click()
@@ -127,6 +129,7 @@ class ContentTests(unittest.TestCase):
                 container.scroll_into_view_if_needed()
                 container.dispatch_event('click')
                 page.wait_for_function('!document.querySelector("#menu video").paused')
+                expect(video).to_have_class(re.compile(r'.*\bopacity-100\b.*'))
                 container.dispatch_event('click')
                 self.assertTrue(video.evaluate('v => v.paused'))
                 extra = page.locator('#extras button[aria-expanded]').first

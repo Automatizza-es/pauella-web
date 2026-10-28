@@ -1,17 +1,22 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 
-// Tracks which dish(es) someone clicked "Ask about this one" on, so the
-// contact form below can carry that context along without the visitor
-// having to retype it. More than one can stack up — the site itself
-// suggests mixing two pans for larger groups. Plain in-memory store (no
-// persistence) — it's only meant to survive the scroll from a dish row
-// down to the contact form in the same session, not across reloads.
+import { useLocale } from "@/components/providers/LocaleProvider";
+import { dishKey, dishLabel, isDishKey } from "./paella-identity";
+export { paellaSlug } from "./paella-identity";
+
+// Stable dish keys survive language changes without depending on translated names.
 type Listener = () => void;
 const listeners = new Set<Listener>();
 const EMPTY: string[] = [];
 let current: string[] = EMPTY;
+let restored = false;
+const STORAGE_KEY = "pauella-language-selection";
+
+export function saveInterestedPaellas() {
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+}
 
 function subscribe(listener: Listener) {
   listeners.add(listener);
@@ -19,6 +24,14 @@ function subscribe(listener: Listener) {
 }
 
 function getSnapshot() {
+  if (!restored) {
+    restored = true;
+    try {
+      const saved: unknown = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "null");
+      if (Array.isArray(saved) && saved.every((key) => typeof key === "string" && (key === "cooking-class" || isDishKey(key)))) current = saved;
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch { /* Storage is optional; the URL still determines language. */ }
+  }
   return current;
 }
 
@@ -34,6 +47,7 @@ function notify() {
 // the tag chips elsewhere on the site, and a quick way to undo a mistaken
 // click without having to scroll down to the contact form to remove it.
 export function toggleInterestedPaella(name: string) {
+  name = dishKey(name);
   current = current.includes(name) ? current.filter((n) => n !== name) : [...current, name];
   notify();
 }
@@ -42,6 +56,7 @@ export function toggleInterestedPaella(name: string) {
 // one-way "take me to the form" button, so a second click shouldn't
 // silently undo the first.
 export function addInterestedPaella(name: string) {
+  name = dishKey(name);
   if (current.includes(name)) return;
   current = [...current, name];
   notify();
@@ -52,6 +67,7 @@ export function addInterestedPaella(name: string) {
 export const COOKING_CLASS = "cooking-class";
 
 export function removeInterestedPaella(name: string) {
+  name = dishKey(name);
   current = current.filter((n) => n !== name);
   notify();
 }
@@ -62,21 +78,7 @@ export function clearInterestedPaella() {
 }
 
 export function useInterestedPaella() {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
-
-// Turns a dish name into the id its row is anchored with (e.g. "The
-// Señorito" -> "paella-the-senorito"), so "+ Add another paella" can jump
-// back to exactly the row someone was looking at instead of the top of
-// the whole menu chapter.
-export function paellaSlug(name: string): string {
-  return (
-    "paella-" +
-    name
-      .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "")
-  );
+  const { locale } = useLocale();
+  const keys = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  return useMemo(() => keys.map((key) => dishLabel(key, locale)), [keys, locale]);
 }

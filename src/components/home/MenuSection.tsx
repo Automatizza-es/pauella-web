@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import { useReveal } from "@/lib/useReveal";
 import { PaellaRow, type PaellaMedia } from "@/components/home/PaellaRow";
 import { OliveBranchIllustration } from "@/components/home/decorative-icons";
+import { useLanguageChoice } from "@/lib/useLanguageChoices";
 import CustomIdeaModal from "./CustomIdeaModal";
 
 // 01 — The Classics. Matches the order of dict.paellas.items.
@@ -96,7 +97,7 @@ export default function MenuSection() {
   const { ref: stepRef } = useReveal<HTMLDivElement>();
   const dialogRef = useRef<HTMLDialogElement>(null);
   // Tracked by index, not label, so picks survive the EN/ES switch.
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [selectedTags, setSelectedTags] = useLanguageChoice<number[]>("custom-tags", []);
 
   function toggleTag(index: number) {
     setSelectedTags((current) =>

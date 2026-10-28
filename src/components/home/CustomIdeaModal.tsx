@@ -3,6 +3,8 @@
 import { forwardRef, useState, type FormEvent, type ReactNode } from "react";
 import { useLocale } from "@/components/providers/LocaleProvider";
 
+import { useLanguageDraft } from "@/lib/language-drafts";
+
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputClass =
@@ -25,7 +27,8 @@ const CustomIdeaModal = forwardRef<HTMLDialogElement, { selectedTags: string[] }
   { selectedTags },
   ref,
 ) {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
+  const draftRef = useLanguageDraft("custom-idea");
   const modal = dict.customIdea.modal;
   const [status, setStatus] = useState<Status>("idle");
 
@@ -68,7 +71,7 @@ const CustomIdeaModal = forwardRef<HTMLDialogElement, { selectedTags: string[] }
         <button
           type="button"
           onClick={close}
-          aria-label="Close"
+          aria-label={locale === "en" ? "Close" : "Cerrar"}
           className="absolute right-6 top-6 text-charcoal-soft/50 transition-colors hover:text-charcoal"
         >
           <span aria-hidden className="text-xl leading-none">
@@ -97,7 +100,7 @@ const CustomIdeaModal = forwardRef<HTMLDialogElement, { selectedTags: string[] }
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="mt-8 grid gap-6">
+            <form ref={draftRef} data-draft="custom-idea" data-submitting={status === "submitting"} onSubmit={handleSubmit} className="mt-8 grid gap-6">
               <input type="hidden" name="tags" value={selectedTags.join(", ")} />
               <Field label={modal.email}>
                 <input name="email" type="email" required className={inputClass} />

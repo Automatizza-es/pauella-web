@@ -11,6 +11,8 @@ import {
   useInterestedPaella,
 } from "@/lib/useInterestedPaella";
 
+import { useLanguageDraft } from "@/lib/language-drafts";
+
 type Status = "idle" | "submitting" | "success" | "error";
 
 // Half-hour slots from 8:00 to 23:30. A select rather than <input
@@ -44,6 +46,7 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
 
 export default function ContactForm() {
   const { dict, locale } = useLocale();
+  const draftRef = useLanguageDraft("contact");
   const form = dict.contact.form;
   const [status, setStatus] = useState<Status>("idle");
   const interestedPaellas = useInterestedPaella();
@@ -96,7 +99,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-7 sm:grid-cols-2">
+    <form ref={draftRef} data-draft="contact" data-submitting={status === "submitting"} onSubmit={handleSubmit} className="grid gap-7 sm:grid-cols-2">
       {interestedPaellas.length > 0 && (
         <div className="flex flex-wrap items-center gap-2 sm:col-span-2">
           <span className="text-xs text-shell/60">{form.askingAbout}:</span>
@@ -109,7 +112,7 @@ export default function ContactForm() {
               <button
                 type="button"
                 onClick={() => removeInterestedPaella(name)}
-                aria-label={`Remove ${labelFor(name)}`}
+                aria-label={`${locale === "en" ? "Remove" : "Quitar"} ${labelFor(name)}`}
                 className="text-shell/60 transition-colors hover:text-shell"
               >
                 ×

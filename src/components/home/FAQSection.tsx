@@ -2,24 +2,17 @@
 
 import Container from "@/components/layout/Container";
 import { useLocale } from "@/components/providers/LocaleProvider";
-import { en } from "@/lib/i18n/en";
-
-// Structured data always describes the canonical (English) page content.
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: en.faq.items.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
-  })),
-};
-
 export default function FAQSection() {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: locale,
+    mainEntity: dict.faq.items.map((faq) => ({
+      "@type": "Question", name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
+  };
 
   return (
     <section id="faq" className="bg-sand py-28 sm:py-36">

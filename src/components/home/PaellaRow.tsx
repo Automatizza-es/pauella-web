@@ -3,6 +3,8 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguageChoice } from "@/lib/useLanguageChoices";
+import { dishKey } from "@/lib/paella-identity";
 import { useReveal } from "@/lib/useReveal";
 import { paellaSlug, toggleInterestedPaella } from "@/lib/useInterestedPaella";
 
@@ -38,7 +40,7 @@ export function PaellaRow({
   const { ref } = useReveal<HTMLDivElement>();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
-  const [isBlack, setIsBlack] = useState(false);
+  const [isBlack, setIsBlack] = useLanguageChoice<boolean>(`black-${dishKey(paella.name)}`, false);
 
   function start() {
     if (!media.video) return;
