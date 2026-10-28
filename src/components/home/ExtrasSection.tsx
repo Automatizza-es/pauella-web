@@ -25,7 +25,7 @@ function ExtraTile({
   index: number;
 }) {
   const [open, setOpen] = useState(false);
-  const { ref, visible } = useReveal<HTMLButtonElement>();
+  const { ref } = useReveal<HTMLButtonElement>();
 
   return (
     <button
@@ -34,7 +34,7 @@ function ExtraTile({
       onClick={() => setOpen((v) => !v)}
       aria-expanded={open}
       style={{ transitionDelay: `${index * 150}ms` }}
-      className={`group relative aspect-[4/5] overflow-hidden rounded-sm text-left transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      className="group relative aspect-[4/5] overflow-hidden rounded-sm text-left transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 data-[reveal=pending]:opacity-0 data-[reveal=pending]:translate-y-8"
     >
       <Image
         src={photo}

@@ -12,7 +12,7 @@ import LearnToCookModal from "./LearnToCookModal";
 export default function LearnToCookBanner() {
   const { dict } = useLocale();
   const teaser = dict.learnToCook.teaser;
-  const { ref, visible } = useReveal<HTMLDivElement>();
+  const { ref } = useReveal<HTMLDivElement>();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -25,9 +25,7 @@ export default function LearnToCookBanner() {
     <div
       id="learn"
       ref={ref}
-      className={`relative mt-16 scroll-mt-28 overflow-hidden rounded-sm bg-sand transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 sm:mt-20 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
+      className="relative mt-16 scroll-mt-28 overflow-hidden rounded-sm bg-sand transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 sm:mt-20 data-[reveal=pending]:opacity-0 data-[reveal=pending]:translate-y-8"
     >
       <div className="relative aspect-[16/10] w-full sm:aspect-[16/7] lg:absolute lg:inset-y-0 lg:right-0 lg:aspect-auto lg:w-[58%]">
         <Image

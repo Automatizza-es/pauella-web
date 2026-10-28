@@ -28,7 +28,7 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 flex translate-y-6 flex-col items-center px-6 text-center text-shell sm:translate-y-8 lg:translate-y-10">
-        <h1>
+        <div>
           <Image
             src="/images/logo/pauella-wordmark-white-bold.png"
             alt="Pauella"
@@ -37,10 +37,10 @@ export default function HeroSection() {
             priority
             className="h-[2.6rem] w-auto drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] sm:h-[4.2rem] md:h-[5.8rem] lg:h-[6.6rem]"
           />
-        </h1>
-        <p className="mt-4 text-[0.72rem] font-black uppercase tracking-[0.32em] text-shell sm:text-[0.82rem]">
+        </div>
+        <h1 className="mt-4 font-sans text-[0.72rem] font-black uppercase tracking-[0.32em] text-shell sm:text-[0.82rem]">
           {dict.hero.tagline}
-        </p>
+        </h1>
 
         <span className="my-6 h-8 w-px bg-shell/50" aria-hidden />
 

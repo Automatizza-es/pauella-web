@@ -67,14 +67,12 @@ function SubsectionHeading({
   name: string;
   description?: string;
 }) {
-  const { ref, visible } = useReveal<HTMLDivElement>();
+  const { ref } = useReveal<HTMLDivElement>();
 
   return (
     <div
       ref={ref}
-      className={`grid gap-8 transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 lg:grid-cols-[2fr_1fr] lg:items-start lg:gap-16 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-      }`}
+      className="grid gap-8 transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 lg:grid-cols-[2fr_1fr] lg:items-start lg:gap-16 data-[reveal=pending]:opacity-0 data-[reveal=pending]:translate-y-6"
     >
       <div className="flex items-center gap-4">
         <span className="text-sm font-medium uppercase tracking-[0.2em] text-terracotta">
@@ -94,8 +92,8 @@ function SubsectionHeading({
 
 export default function MenuSection() {
   const { dict } = useLocale();
-  const { ref: introRef, visible: introVisible } = useReveal<HTMLDivElement>();
-  const { ref: stepRef, visible: stepVisible } = useReveal<HTMLDivElement>();
+  const { ref: introRef } = useReveal<HTMLDivElement>();
+  const { ref: stepRef } = useReveal<HTMLDivElement>();
   const dialogRef = useRef<HTMLDialogElement>(null);
   // Tracked by index, not label, so picks survive the EN/ES switch.
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
@@ -112,9 +110,7 @@ export default function MenuSection() {
         {/* Chapter intro */}
         <div
           ref={introRef}
-          className={`mx-auto max-w-2xl text-center transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
-            introVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
+          className="mx-auto max-w-2xl text-center transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 data-[reveal=pending]:opacity-0 data-[reveal=pending]:translate-y-8"
         >
           <p className="text-xs font-medium uppercase tracking-[0.28em] text-terracotta">
             {dict.menu.eyebrow}
@@ -189,9 +185,7 @@ export default function MenuSection() {
               text side, so the block reads as one strip, not a full row. */}
           <div
             ref={stepRef}
-            className={`relative mt-10 overflow-hidden rounded-sm bg-sand transition-all lg:flex lg:min-h-[28rem] lg:items-center duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 ${
-              stepVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+            className="relative mt-10 overflow-hidden rounded-sm bg-sand transition-all lg:flex lg:min-h-[28rem] lg:items-center duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 data-[reveal=pending]:opacity-0 data-[reveal=pending]:translate-y-8"
           >
             <div className="relative aspect-[5/4] w-full sm:aspect-[4/3] lg:absolute lg:inset-y-0 lg:right-0 lg:aspect-auto lg:w-[48%]">
               <Image
