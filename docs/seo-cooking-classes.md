@@ -154,3 +154,14 @@ En Vercel, abrir el despliegue de esta rama y comprobar su build antes de revisa
 Se acepta `SEO_BASE_URL=https://preview-autorizada.vercel.app` en las suites de
 HTML/navegador. No se elude Deployment Protection. No hacer merge ni publicar en
 producción antes de aprobar esta revisión.
+
+### URL de preview facilitada para esta revisión
+
+- EN: https://pauella-web-git-feat-seo-paella-cooki-70e128-mjlopezzs-projects.vercel.app/paella-cooking-classes-los-angeles/
+- ES: https://pauella-web-git-feat-seo-paella-cooki-70e128-mjlopezzs-projects.vercel.app/es/clases-de-paella-los-angeles/
+
+La URL base fue facilitada por el usuario y coincide con el enlace de Vercel
+mostrado para el commit en GitHub. Las consultas desde el entorno cloud se
+bloquean en el proxy (CONNECT 403), antes de llegar a Vercel: no se afirma que
+la aplicación devuelva ese error ni que el build remoto haya sido verificado.
+Completar la revisión visual e interactiva y confirmar el build desde Vercel.
