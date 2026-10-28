@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Pauella",
-  url: "https://pauella.com",
+  url: "https://www.pauella.com",
   description:
     "Live paella catering in Los Angeles. Pau brings the fire, the pan and the show, cooking paella in front of your guests for weddings, private parties and corporate events across Southern California.",
   tagline: "Live paella catering in Los Angeles",
