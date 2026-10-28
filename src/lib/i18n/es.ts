@@ -10,7 +10,7 @@ export const es: Dictionary = {
     bookEvent: "Reserva tu evento",
   },
   hero: {
-    tagline: "Paella en vivo para eventos en Los Ángeles",
+    tagline: "Catering de paellas en directo en Los Ángeles",
     bookEvent: "Reserva tu evento",
     seeExperience: "Ver la experiencia",
   },

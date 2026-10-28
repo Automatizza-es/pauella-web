@@ -35,7 +35,7 @@ export function PaellaRow({
   blackActiveLabel?: string;
   dark?: boolean;
 }) {
-  const { ref, visible } = useReveal<HTMLDivElement>();
+  const { ref } = useReveal<HTMLDivElement>();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [isBlack, setIsBlack] = useState(false);
@@ -70,9 +70,7 @@ export function PaellaRow({
     <div
       ref={ref}
       id={paellaSlug(paella.name)}
-      className={`grid scroll-mt-28 items-center gap-7 py-9 transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 lg:grid-cols-[2fr_3fr] lg:gap-16 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
+      className="grid scroll-mt-28 items-center gap-7 py-9 transition-all duration-1000 ease-out motion-reduce:transition-none motion-reduce:opacity-100 motion-reduce:translate-y-0 lg:grid-cols-[2fr_3fr] lg:gap-16 data-[reveal=pending]:opacity-0 data-[reveal=pending]:translate-y-8"
     >
       <div
         onPointerEnter={(event) => {
@@ -138,7 +136,7 @@ export function PaellaRow({
           className={`block h-px w-8 bg-terracotta ${reversed ? "lg:ml-auto" : ""}`}
           aria-hidden
         />
-        <h3 className="mt-4 text-3xl sm:text-4xl">{paella.name}</h3>
+        <h4 className="mt-4 text-3xl sm:text-4xl">{paella.name}</h4>
         <p
           className={`mt-6 max-w-md ${dark ? "text-shell/70" : "text-charcoal-soft"} ${reversed ? "lg:ml-auto" : ""}`}
         >

@@ -7,7 +7,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
-    "test:seo": "node --test tests/seo-domain.test.mjs"
+    "test:seo": "node --test tests/seo-domain.test.mjs",
+    "test:content": "node --test tests/content-html.test.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",
