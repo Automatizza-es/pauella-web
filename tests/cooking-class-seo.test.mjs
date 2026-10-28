@@ -44,7 +44,12 @@ for (const locale of ["en", "es"]) {
     assert.ok(!JSON.stringify(graph).includes('"address"'));
     const faq = graph.find((entity) => entity["@type"] === "FAQPage");
     assert.equal(faq.inLanguage, locale);
-    assert.equal(faq.mainEntity.length, 7);
+    assert.equal(faq.mainEntity.length, 6);
+    assert.ok(html.includes(locale === "en" ? "Let&#x27;s cook something together." : "¿Cocinamos algo juntos?"));
+    assert.ok(html.includes(locale === "en" ? "Get in touch with Pau" : "Contacta con Pau"));
+    assert.ok(html.includes('href="tel:+12137264675"'));
+    const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<[^>]*>/g, " ");
+    assert.doesNotMatch(visible, /\b(?:payment|payments|cancellation|cancellations|reservation|booking|pagos|cancelaciones|reserva|reservas|condiciones)\b/i);
     for (const question of faq.mainEntity) {
       assert.ok(html.includes(escape(question.name)));
       assert.ok(html.includes(escape(question.acceptedAnswer.text)));

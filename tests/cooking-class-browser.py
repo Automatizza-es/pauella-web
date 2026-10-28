@@ -84,7 +84,7 @@ class ClassTests(unittest.TestCase):
                     expect(form.locator('[name=name]')).to_have_value('Browser test')
                     expect(form.locator('[name=participants]')).to_have_value('3')
                     form.locator('button[type=submit]').click()
-                    expect(page.get_by_role('status')).to_contain_text('not confirmed' if locale == 'en' else 'no está confirmada')
+                    expect(page.get_by_role('status')).to_contain_text('Pau will get in touch personally' if locale == 'en' else 'Pau te contactará personalmente')
                     self.assertEqual(len(requests), 1)
                     self.assertTrue(requests[0][0].endswith('/api/cooking-class'))
                     self.assertEqual(requests[0][1]['serviceId'], 'cooking-class')

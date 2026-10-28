@@ -15,8 +15,8 @@ Las nuevas condiciones del usuario sustituyen las dudas del borrador anterior:
 - Equipo y utensilios para la experiencia, ingredientes de la receta acordada y
   una receta para repetirla en casa. No se promete entregar los utensilios al cliente.
 - La receta se elige y confirma con Pau según preferencias y opciones disponibles.
-- La solicitud no es una reserva ni un pago. Pau contacta personalmente para
-  confirmar disponibilidad, ubicación, condiciones y presupuesto.
+- El formulario es una solicitud de contacto. Pau gestiona personalmente cada
+  consulta por email o teléfono; el presupuesto se menciona solo donde aporta contexto.
 
 Texto y FAQ completos EN/ES en `src/lib/classes/content.ts`. No se inventan
 precios, cancelaciones, sede, aforo, disponibilidad concreta ni reseñas.
@@ -56,7 +56,7 @@ Se conservan secciones, CTA, formularios, platos, extras, fotos, vídeos e histo
 Campos obligatorios: nombre, email y participantes. Opcionales: fecha preferida,
 ubicación y mensaje. Sin pago, plazas garantizadas ni confirmación automática.
 El formulario da estado de envío, error recuperable y éxito como solicitud,
-con aviso explícito de que la reserva aún no está confirmada.
+que confirma únicamente que se ha enviado una consulta.
 
 Nuevo endpoint `/api/cooking-class`, con identidad `cooking-class` fijada por el
 servidor y visible en el asunto y cuerpo del email. Reutiliza `emailRows` y
@@ -165,3 +165,13 @@ mostrado para el commit en GitHub. Las consultas desde el entorno cloud se
 bloquean en el proxy (CONNECT 403), antes de llegar a Vercel: no se afirma que
 la aplicación devuelva ese error ni que el build remoto haya sido verificado.
 Completar la revisión visual e interactiva y confirmar el build desde Vercel.
+
+### Ajuste de tono y CTA
+
+Se retira el bloque de pasos de contratación y la FAQ de reserva/presupuesto.
+No hay contenido público sobre pagos, cancelaciones o políticas de reserva.
+El CTA final es “Let’s cook something together.” / “Get in touch with Pau” y
+“¿Cocinamos algo juntos?” / “Contacta con Pau”. El éxito del formulario confirma
+solo el envío de una consulta, sin prometer plazos. Participantes y ubicación
+se mantienen para preparar la experiencia, con email y teléfono como vías directas.
+Las referencias a presupuesto personalizado quedan en el contexto geográfico.
