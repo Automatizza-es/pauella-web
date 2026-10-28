@@ -58,6 +58,25 @@ class ClassTests(unittest.TestCase):
                     expect(page.locator('html')).to_have_attribute('lang', other)
                     self.assertEqual(requests, [])
 
+    def test_home_banner_links_without_javascript(self):
+        for locale in PATHS:
+            for name, size in SIZES:
+                with self.subTest(locale=locale, viewport=name):
+                    page, requests = self.page(size, java_script_enabled=False)
+                    home = '/' if locale == 'en' else '/es/'
+                    page.goto(BASE + home, wait_until='networkidle')
+                    banner = page.locator('#learn')
+                    self.assertEqual(banner.locator('a').count(), 1)
+                    self.assertEqual(banner.locator('button, dialog').count(), 0)
+                    expect(banner.get_by_role('link', name='Cook with Pau' if locale == 'en' else 'Cocina con Pau')).to_have_attribute('href', PATHS[locale])
+                    expect(page.locator(f'footer a[href="{PATHS[locale]}"]')).to_be_visible()
+                    self.assertEqual(page.locator('dialog').count(), 1)
+                    banner.get_by_role('link').click()
+                    expect(page).to_have_url(BASE + PATHS[locale])
+                    expect(page.locator('html')).to_have_attribute('lang', locale)
+                    self.assertEqual(page.locator('h1').count(), 1)
+                    self.assertEqual(requests, [])
+
     def test_forms_failure_retry_and_video(self):
         for locale in PATHS:
             for name, size in SIZES:

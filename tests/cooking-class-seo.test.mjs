@@ -75,16 +75,23 @@ for (const locale of ["en", "es"]) {
   });
 }
 
-test("home keeps its sections and adds all three class entry points", async () => {
+test("home keeps its sections and links the single main class CTA and footer", async () => {
   for (const locale of ["en", "es"]) {
     const response = await fetch(new URL(locale === "en" ? "/" : "/es/", base));
     assert.equal(response.status, 200);
     const html = await response.text();
     for (const id of ["top", "concept", "experience", "menu", "extras", "learn", "about", "service-area", "faq", "contact"]) assert.ok(html.includes(`id="${id}"`), id);
-    const teaser = html.match(/id="learn"([\s\S]*?)<dialog/)[1];
-    assert.ok(teaser.includes(`href="${paths[locale]}"`));
-    const dialogs = [...html.matchAll(/<dialog\b[^>]*>([\s\S]*?)<\/dialog>/g)].map(([, body]) => body);
-    assert.ok(dialogs.some((dialog) => dialog.includes(`href="${paths[locale]}"`)));
+    const teaser = html.split('id="learn"')[1].split('</section>')[0];
+    const teaserLinks = [...teaser.matchAll(/<a\b[^>]*>/g)].map(([tag]) => attrs(tag));
+    assert.equal(teaserLinks.length, 1);
+    assert.equal(teaserLinks[0].href, paths[locale]);
+    assert.ok(teaser.includes(locale === "en" ? "Cook with Pau" : "Cocina con Pau"));
+    assert.ok(!teaser.includes("<button"));
+    assert.ok(!teaser.includes("<dialog"));
+    assert.ok(!teaser.includes("Class details"));
+    assert.ok(!teaser.includes("Detalles de la clase"));
+    const dialogs = [...html.matchAll(/<dialog\b[^>]*>([\s\S]*?)<\/dialog>/g)];
+    assert.equal(dialogs.length, 1, "Only the custom-paella modal remains");
     const footer = html.match(/<footer\b[^>]*>([\s\S]*?)<\/footer>/)[1];
     assert.ok(footer.includes(`href="${paths[locale]}"`));
   }

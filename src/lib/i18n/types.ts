@@ -89,12 +89,6 @@ export interface Dictionary {
       body: string;
       cta: string;
     };
-    title: string;
-    body: string;
-    steps: string[];
-    kitTitle: string;
-    kit: string[];
-    cta: string;
   };
   serviceArea: {
     eyebrow: string;

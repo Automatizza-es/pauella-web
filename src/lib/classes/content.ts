@@ -36,7 +36,7 @@ export const classContent = {
     enquiryTitle: "Let's cook something together.",
     enquiry: "Tell Pau what you would like to cook, how many people would like to join and where you have in mind. Add a preferred date or a little about your idea if you like. Pau handles every enquiry personally and will get in touch by email or phone.",
     form: { name: "Name", email: "Email", participants: "Number of participants", date: "Preferred date (optional)", location: "Location (optional)", message: "Tell Pau about your idea (optional)", submit: "Get in touch with Pau", sending: "Sending…", success: "Thank you. Your enquiry has been sent. Pau will get in touch personally by email or phone.", error: "Your enquiry could not be sent. Check your details and try again, or email Pau directly." },
-    emailLabel: "Prefer email?", phoneLabel: "Or call Pau", cateringLabel: "Planning an event for your guests?", cateringLink: "Explore live paella catering", detailsLink: "Class details", footerLink: "Paella cooking classes",
+    emailLabel: "Prefer email?", phoneLabel: "Or call Pau", cateringLabel: "Planning an event for your guests?", cateringLink: "Explore live paella catering", footerLink: "Paella cooking classes",
   },
   es: {
     title: "Clases de Paella en Los Ángeles | Pauella",
@@ -73,6 +73,6 @@ export const classContent = {
     enquiryTitle: "¿Cocinamos algo juntos?",
     enquiry: "Cuéntale a Pau qué te gustaría cocinar, cuántas personas participarían y dónde lo tienes en mente. Si quieres, añade una fecha preferida o unas líneas sobre tu idea. Pau gestiona cada consulta personalmente y te contactará por email o teléfono.",
     form: { name: "Nombre", email: "Email", participants: "Número de participantes", date: "Fecha preferida (opcional)", location: "Ubicación (opcional)", message: "Cuéntale tu idea a Pau (opcional)", submit: "Contacta con Pau", sending: "Enviando…", success: "Gracias. Tu consulta se ha enviado. Pau te contactará personalmente por email o teléfono.", error: "No se ha podido enviar tu consulta. Revisa los datos e inténtalo de nuevo o escribe directamente a Pau." },
-    emailLabel: "¿Prefieres escribir un email?", phoneLabel: "También puedes llamar a Pau", cateringLabel: "¿Organizas un evento para tus invitados?", cateringLink: "Descubre el catering de paellas en directo", detailsLink: "Detalles de la clase", footerLink: "Clases de paella",
+    emailLabel: "¿Prefieres escribir un email?", phoneLabel: "También puedes llamar a Pau", cateringLabel: "¿Organizas un evento para tus invitados?", cateringLink: "Descubre el catering de paellas en directo", footerLink: "Clases de paella",
   },
 } satisfies Record<Locale, unknown>;

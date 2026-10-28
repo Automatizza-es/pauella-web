@@ -1,6 +1,4 @@
-// Large-scale decorative line art, same hand-drawn stroke style as
-// gallery-icons.tsx, just scaled up for use as a faint background flourish
-// rather than a small UI icon.
+// Large-scale decorative line art with a hand-drawn stroke, used as a faint background flourish.
 export function OliveBranchIllustration({ className = "" }: { className?: string }) {
   return (
     <svg

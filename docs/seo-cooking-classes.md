@@ -48,8 +48,10 @@ reduced motion respetado. El header y footer conocen el contexto: desde clases,
 menú/extras/historia regresan a la home localizada; logo a home; CTA y contacto
 al formulario de clase. EN/ES conserva la landing equivalente y sus anclas.
 
-En home solo se añaden los enlaces secundarios del teaser, modal y footer.
-Se conservan secciones, CTA, formularios, platos, extras, fotos, vídeos e historia.
+En home el CTA principal del banner de clases enlaza directamente a la landing
+localizada, y se conserva el enlace de footer. El modal antiguo de clases y el
+enlace secundario duplicado se retiran. El modal de paella personalizada y las
+demás secciones, formularios, platos, extras, fotos, vídeos e historia se conservan.
 
 ## Formulario y entrega
 
@@ -117,14 +119,14 @@ No se añaden dependencias npm ni se altera el lockfile.
   identidad, opcionales y fallo de entrega sin falso éxito.
 - HTML/SEO de clases: 3 pasan; H01 adaptada al sitemap de cuatro URLs: 4 pasan;
   SEO www: 3 pasan; H1/H04: 1 pasa.
-- Chromium clases: 4 métodos pasan, con EN/ES, móvil 390×844 y escritorio 1440×1000,
+- Chromium clases: 5 métodos pasan, con EN/ES, móvil 390×844 y escritorio 1440×1000,
   sin JS, requisitos del formulario, fallo/reintento interceptados, video,
   navegación, anclas, reduced motion y borradores independientes ida/vuelta.
 - Regresiones Chromium H01: 7 métodos pasan; H03–H04: 5 pasan.
 - Sin errores de hidratación detectados en esas suites.
 - Portada home EN/ES: coincidencia de píxeles antes/después en ambos tamaños,
-  excluyendo el indicador de desarrollo. Los enlaces nuevos cambian únicamente
-  el espacio de teaser/modal/footer. Las landings no desbordan horizontalmente.
+  excluyendo el indicador de desarrollo. El banner mantiene sus dimensiones y CTA;
+  la diferencia visual se limita al texto secundario retirado. Las landings no desbordan horizontalmente.
 - Capturas locales con fuentes de sustitución; falta comprobar fuentes finales
   y Safari/iOS. Build ejecutado: falla al descargar Inter y Newsreader de Google Fonts por
   la restricción de red. No se modifican las fuentes ni se omite la verificación;
@@ -142,8 +144,9 @@ En Vercel, abrir el despliegue de esta rama y comprobar su build antes de revisa
    lang/H1, canonical propio con www, alternates recíprocos de clases, OG y JSON-LD.
 2. Confirmar que la preview no se indexa y que no introduce su host en metadatos.
 3. Revisar móvil/escritorio, CTA, sección de equipo, vídeo y FAQ actualizadas.
-4. Desde home abrir detalles en teaser y modal, y enlace de footer; comprobar que
-   los CTA originales y las secciones siguen presentes.
+4. Desde home usar “Cook with Pau” / “Cocina con Pau” y el enlace de footer:
+   ambos llevan a la landing localizada. El banner tiene un solo enlace y no abre
+   un modal. El modal de paella personalizada y las demás secciones siguen presentes.
 5. Empezar borrador de catering, ir a clases, escribir otro y cambiar EN/ES; volver
    a home y a clases. Confirmar valores independientes y selección de paellas.
 6. Probar formulario mediante automatización interceptada, sin enviar correos
@@ -175,3 +178,18 @@ El CTA final es “Let’s cook something together.” / “Get in touch with Pa
 solo el envío de una consulta, sin prometer plazos. Participantes y ubicación
 se mantienen para preparar la experiencia, con email y teléfono como vías directas.
 Las referencias a presupuesto personalizado quedan en el contexto geográfico.
+
+### Simplificación del banner de home
+
+El único consumidor del modal de clases era `LearnToCookBanner`: se elimina ese
+componente, su módulo de iconos sin otros consumidores, el estado/ref de apertura,
+los textos exclusivos y la función de añadir clases desde ese modal. Se conserva
+la clave de clase que ContactForm necesita para selecciones antiguas de sesión.
+No se borran recursos multimedia: el vídeo sigue disponible en la landing.
+
+El CTA mantiene texto y clases visuales, ahora como `<a href>` nativo. Se retira
+el secundario y se ajusta únicamente el padding inferior para conservar altura y
+posición del CTA. Comparación antes/después en 390×844 y 1440×1000, EN/ES:
+dimensiones y posición relativa de banner/imagen/CTA idénticas; diferencias de
+píxeles limitadas al texto secundario eliminado. Prueba de navegación sin JS en
+ambos tamaños e idiomas; footer y modal de paella personalizada conservados.

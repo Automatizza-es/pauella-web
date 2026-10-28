@@ -52,16 +52,6 @@ export function toggleInterestedPaella(name: string) {
   notify();
 }
 
-// Unlike the dish rows, the cooking-class CTA only ever adds: it's a
-// one-way "take me to the form" button, so a second click shouldn't
-// silently undo the first.
-export function addInterestedPaella(name: string) {
-  name = dishKey(name);
-  if (current.includes(name)) return;
-  current = [...current, name];
-  notify();
-}
-
 // Stored as a fixed key rather than a label so the chip follows the
 // language switcher; ContactForm turns it into dict.contact.form.cookingClass.
 export const COOKING_CLASS = "cooking-class";

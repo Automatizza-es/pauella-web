@@ -1,28 +1,15 @@
 "use client";
 
 import { pagePaths } from "@/lib/page-routes";
-import { classContent } from "@/lib/classes/content";
 import Image from "next/image";
-import { useRef, useState } from "react";
 import { useLocale } from "@/components/providers/LocaleProvider";
 import { useReveal } from "@/lib/useReveal";
-import LearnToCookModal from "./LearnToCookModal";
 
-// Compact teaser card closing the Extras section: the full detail (steps,
-// kit, video) lives in the modal, so the page only carries title + one
-// line + CTA.
+// The teaser links directly to the complete, localized cooking-class page.
 export default function LearnToCookBanner() {
   const { dict, locale } = useLocale();
   const teaser = dict.learnToCook.teaser;
   const { ref } = useReveal<HTMLDivElement>();
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  function openModal() {
-    setModalOpen(true);
-    dialogRef.current?.showModal();
-  }
-
   return (
     <div
       id="learn"
@@ -42,25 +29,22 @@ export default function LearnToCookBanner() {
         <div className="absolute inset-0 bg-gradient-to-t from-sand via-sand/0 via-35% lg:bg-gradient-to-r lg:via-sand/60 lg:via-20% lg:to-transparent lg:to-60%" />
       </div>
 
-      <div className="relative max-w-md px-6 pb-10 pt-2 sm:px-10 lg:px-14 lg:py-16">
+      {/* Preserve the banner footprint and CTA position after removing the secondary link. */}
+      <div className="relative max-w-md px-6 pb-20 pt-2 sm:px-10 lg:px-14 lg:py-16 lg:pb-[6.5rem]">
         <p className="text-xs font-medium uppercase tracking-[0.28em] text-terracotta">
           {dict.learnToCook.eyebrow}
         </p>
         <h3 className="mt-4 text-balance text-3xl sm:text-4xl">{teaser.title}</h3>
         <p className="mt-4 text-charcoal-soft">{teaser.body}</p>
 
-        <button
-          type="button"
-          onClick={openModal}
+        <a
+          href={pagePaths.classes[locale]}
           className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-terracotta px-8 py-3.5 text-xs font-medium uppercase tracking-[0.18em] text-shell transition-colors hover:bg-terracotta-deep"
         >
           {teaser.cta}
           <span aria-hidden>→</span>
-        </button>
-        <a href={pagePaths.classes[locale]} className="mt-6 block text-xs font-medium uppercase tracking-[0.14em] underline decoration-charcoal/30 underline-offset-8 transition-colors hover:text-terracotta">{classContent[locale].detailsLink}</a>
+        </a>
       </div>
-
-      <LearnToCookModal ref={dialogRef} open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 }

@@ -139,10 +139,13 @@ class I18nTests(unittest.TestCase):
                     extra = page.locator('#extras button[aria-expanded]').first
                     extra.click()
                     expect(extra).to_have_attribute('aria-expanded', 'true')
-                    page.locator('#learn > div > button').click()
-                    expect(page.locator('dialog[open] video')).to_be_visible()
-                    page.locator('dialog[open] a[href="#contact"]').click()
-                    expect(page.locator('[name=interestedPaella]')).to_have_value('Cooking class with Pau' if locale == 'en' else 'Clase de cocina con Pau')
+                    page.locator('#learn > div > a').click()
+                    page.wait_for_load_state('networkidle')
+                    expect(page).to_have_url(BASE + ('/paella-cooking-classes-los-angeles/' if locale == 'en' else '/es/clases-de-paella-los-angeles/'))
+                    expect(page.locator('form[data-draft=cooking-class]')).to_be_visible()
+                    page.locator('header a:has(img[alt=Pauella])').click()
+                    page.wait_for_load_state('networkidle')
+                    expect(page.locator('[name=interestedPaella]')).to_have_value('')
                     page.locator('#menu').get_by_role('button', name='Tell Pau your idea' if locale == 'en' else 'Cuéntale tu idea a Pau', exact=True).click()
                     custom = page.locator('form[data-draft=custom-idea]')
                     custom.locator('[name=email]').fill('test@example.invalid')
@@ -158,7 +161,7 @@ class I18nTests(unittest.TestCase):
                     self.assertEqual(len(requests), 2)
                     self.assertTrue(requests[0][0].endswith('/api/custom-idea'))
                     self.assertTrue(requests[1][0].endswith('/api/contact'))
-                    self.assertIn('cooking' if locale == 'en' else 'cocina', requests[1][1]['interestedPaella'].lower())
+                    self.assertEqual(requests[1][1]['interestedPaella'], '')
 
     def test_language_change_waits_for_pending_submission(self):
         page, _ = self.page(SIZES[0][1], reduced_motion='reduce')
