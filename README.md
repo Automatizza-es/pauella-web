@@ -82,3 +82,16 @@ eluden la protección. Mantener la preview fuera del índice y comprobar que
 producción permite indexación. Los tests verifican canonical, URLs absolutas
 Open Graph/Twitter (resueltas mediante metadataBase), JSON-LD, robots y sitemap;
 no verifican la indexación real en Google ni las redirecciones del hosting.
+
+## Idiomas indexables
+
+`/` sirve inglés y `/es/` español desde el servidor. La URL decide el idioma;
+la antigua preferencia en localStorage no la sustituye. EN/ES son enlaces reales.
+Con JavaScript, el cambio de idioma conserva borradores y selecciones en la misma
+pestaña mediante almacenamiento temporal. Detalles, límites y comprobaciones de
+preview en [docs/seo-h01.md](docs/seo-h01.md).
+
+```bash
+npm run test:i18n
+python tests/i18n-browser.py
+```

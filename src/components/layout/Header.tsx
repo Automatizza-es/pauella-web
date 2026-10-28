@@ -8,7 +8,7 @@ import LocaleSwitcher from "./LocaleSwitcher";
 import { useLocale } from "@/components/providers/LocaleProvider";
 
 export default function Header() {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -99,7 +99,7 @@ export default function Header() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
-              aria-label="Toggle menu"
+              aria-label={locale === "en" ? "Toggle menu" : "Abrir o cerrar menú"}
               className={solid ? "text-charcoal" : "text-shell"}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>

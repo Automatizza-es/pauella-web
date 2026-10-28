@@ -19,7 +19,7 @@ const LearnToCookModal = forwardRef<HTMLDialogElement, Props>(function LearnToCo
   { open, onClose },
   ref,
 ) {
-  const { dict } = useLocale();
+  const { dict, locale } = useLocale();
   const learn = dict.learnToCook;
 
   function close() {
@@ -39,7 +39,7 @@ const LearnToCookModal = forwardRef<HTMLDialogElement, Props>(function LearnToCo
         <button
           type="button"
           onClick={close}
-          aria-label="Close"
+          aria-label={locale === "en" ? "Close" : "Cerrar"}
           className="absolute right-6 top-6 text-charcoal-soft/50 transition-colors hover:text-charcoal"
         >
           <span aria-hidden className="text-xl leading-none">

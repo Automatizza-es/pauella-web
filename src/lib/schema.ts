@@ -1,13 +1,15 @@
 import { siteConfig } from "./site-config";
-import { en } from "./i18n/en";
+import { dictionaries, type Locale } from "./i18n";
+import { descriptions, languageAlternates } from "./locale-seo";
 
-export function getCateringBusinessSchema() {
+export function getCateringBusinessSchema(locale: Locale = "en") {
+  const dict = dictionaries[locale];
   return {
     "@context": "https://schema.org",
     "@type": "CateringBusiness",
     name: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
+    description: descriptions[locale],
+    url: languageAlternates[locale],
     image: `${siteConfig.url}/images/pau-sunset-paella.png`,
     telephone: siteConfig.phone,
     email: siteConfig.email,
@@ -20,12 +22,12 @@ export function getCateringBusinessSchema() {
     })),
     hasMenu: {
       "@type": "Menu",
-      name: en.menu.title,
+      name: dict.menu.title,
       hasMenuSection: [
         {
           "@type": "MenuSection",
-          name: en.paellas.name,
-          hasMenuItem: en.paellas.items.map((paella) => ({
+          name: dict.paellas.name,
+          hasMenuItem: dict.paellas.items.map((paella) => ({
             "@type": "MenuItem",
             name: paella.name,
             description: paella.description,
@@ -33,8 +35,8 @@ export function getCateringBusinessSchema() {
         },
         {
           "@type": "MenuSection",
-          name: en.specials.name,
-          hasMenuItem: en.specials.items.map((paella) => ({
+          name: dict.specials.name,
+          hasMenuItem: dict.specials.items.map((paella) => ({
             "@type": "MenuItem",
             name: paella.name,
             description: paella.description,
